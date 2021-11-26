@@ -163,3 +163,38 @@ const nameArr2 = nameArr.map((name) => {
 });
 
 console.log(nameArr2)
+
+// mapを使って配列処理
+nameArr.map((name) => console.log(name));
+
+// filter関数で奇数のみ取り出す
+const numArr = [1, 2, 3, 4, 5];
+
+// 奇数のみ抽出
+const newNumber = numArr.filter((num) => {
+  return num % 2 === 1;
+});
+
+console.log(newNumber);
+
+// 第2引数にindexが入ってくる
+nameArr.map((name, index) => console.log(`${index+1}番目は${name}です`));
+
+// 三項演算子を使用した例
+const val_1 = 1 > 0 ? "true！" : "false！";
+console.log(val_1);
+
+const printFormattedNum = (num) => {
+  const formattedNum = typeof num === "number" ? num.toLocaleString() : "数値を入力してください";
+    console.log(formattedNum);
+};
+
+printFormattedNum(1300);
+printFormattedNum("1300");
+
+// 2つの引数の合計が100を超えているか判定する関数
+const checkSumOver100 = (num1, num2) => {
+  return num1 + num2 > 100 ? "over100" : "under100";
+};
+console.log(checkSumOver100(50, 40));
+console.log(checkSumOver100(50, 70));

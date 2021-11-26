@@ -392,3 +392,97 @@ const nameArr2 = nameArr.map((name) => {
 });
 ```
 
+　上記は順に処理する中で値をそのまま返してるので同じ、配列が設定されているという無意味な処理だが、基本的なmapの使い方である。
+
+`例: map関数を使用`
+
+```javascript
+const nameArr = ["satoichi", "sato", "toichi"];
+
+// mapを使って配列処理
+nameArr.map((name) => console.log(name));
+```
+
+　アロー関数を1行で書いてコンソールへの出力を記述している。for文と比較してもシンプルに書けることがわかる。
+
+
+
+### filter関数の使い方
+
+　filter関数はmap関数とほとんど使い方が同じだが、returnの後に条件式を記述して一致されるもののみが返却される関数となる。
+
+　以下は数字が格納された配列から奇数のみを取り出す例である。
+
+`例: filter関数で奇数のみ取り出す`
+
+```javascript
+// filter関数で奇数のみ取り出す
+const numArr = [1, 2, 3, 4, 5];
+
+// 奇数のみ抽出
+const newNumber = numArr.filter((num) => {
+  return num % 2 === 1;
+});
+
+console.log(newNumber);
+```
+
+　このようにfilter関数は条件に一致する値のみ配列の中から取り出すことができる。
+
+
+
+### indexの扱い
+
+`例: map関数の引数で要素順に取り出す`
+
+```javascript
+const nameArr = ["satoichi", "sato", "toichi"];
+// 第2引数にindexが入ってくる
+nameArr.map((name, index) => console.log(`${index+1}番目は${name}です`));
+```
+
+　このようにmap内の関数は第二引数を書くことができ、書いた場合はそこに0から順番にindexの情報が格納される。「何番目か」という概念が必要な場合はmapやfilterで第二引数を活用する。
+
+
+
+## 三項演算子
+
+`三項演算子`
+
+```
+ある条件 ? 条件がtrueの時の処理 : 条件がfalseの時の処理
+```
+
+```javascript
+// 三項演算子を使用した例
+const val_1 = 1 > 0 ? "true！" : "false！";
+console.log(val_1);
+```
+
+
+
+「入力値が数値の場合は3桁区切りの表記に変換、数値以外の場合はメッセージを表示する」という処理が以下のように書ける。
+
+`例: 入力値に対するメッセージを出す`
+
+```javascript
+const printFormattedNum = (num) => {
+  const formattedNum = typeof num === "number" ? num.toLocaleString() : "数値を入力してください";
+    console.log(formattedNum);
+};
+
+printFormattedNum(1300);
+printFormattedNum("1300");
+```
+
+　`typeof ~`は変数等の型を判定してくれるもので、`toLocalString()`は数値を3桁カンマ区切りに変換してくれる。
+
+```javascript
+// 2つの引数の合計が100を超えているか判定する関数
+const checkSumOver100 = (num1, num2) => {
+  return num1 + num2 > 100 ? "over100" : "under100";
+};
+console.log(checkSumOver100(50, 40));
+console.log(checkSumOver100(50, 70));
+```
+
