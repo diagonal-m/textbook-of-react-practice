@@ -116,3 +116,92 @@ obj.str = 10; // NG
 obj.num = null; // NG
 ```
 
+　オブジェクトに対してはオブジェクトの各プロパティ毎に型を指定することができる。指定された型以外の変数をプロパティに設定しようとするとエラーになる。
+
+
+
+### 複合的な型
+
+`書式: intersection(交差)型`
+
+```react
+// 型 & 型で指定
+const obj: { str: string } & { num: number } = {
+  str: "A",
+  num: 10,
+};
+obj.str = "20"; // OK
+obj.num = "10"; // NG
+```
+
+　intersectionは複数の型を合体して新たな型定義を作成できる。&で複数の型を指定することで使用する。下記のように同じ型定義のプロパティ(str: string)が存在する場合もマージされて問題なく機能する。
+
+`例: 同じ型定義のプロパティ(str: string)が存在する場合`
+
+```react
+type TypeA = {
+  str: string;
+  num: number;
+}
+type TypeB = {
+  str: string;
+  bool: boolean;
+}
+// TypeAとTypeBから新しいTypeCを作成
+const obj: TypeC = {
+  str: "A",
+  num: 10,
+  bool: false,
+};
+```
+
+　`type`構文とはTypeScriptで型を定義するための構文である。型定義を変数化して使い回すことで毎回複雑な型を書く必要がなくなり、型情報を一元管理できるため開発効率が上昇する。Intersectionを使用するとことで上記のように２つの型定義から新たな型を作成し、変数に設定することができる。
+
+`書式: union(合併, 共用体)型`
+
+```react
+// 型 | 型で指定
+let val1: string | number = "";
+val1 = "A"; // OK
+val1 = 10; // OK
+val1 = []; // OK
+```
+
+
+
+### Generics(ジェネリクス)
+
+　ジェネリクスは型の定義を使用時に動的に変更できるという機能を提供する。
+
+`例: 型の定義例`
+
+```react
+type CustomType<T> = {
+  val: T;
+}
+```
+
+　`<T>`の部分がジェネリクス特有の書き方である。型の後に`<T>`のように型の変数のようなものを定義しておくことで`val: T`のように動的にプロパティvalの型を扱うことができる。ここで`T`というのはなんでもよく、大文字１文字で表されるのが一般的である。
+
+　上記の`CustomType`を使用する際は以下のように使用する。
+
+`書式: CustomTypeの使用方法`
+
+```react
+const strObj: CustomType<string> = { val: "A" };
+```
+
+　使用する際は`<>`の中に任意の型名を指定する。このようにすることでプロパティvalはstring型となるのでstring以外の値は受け付けなくなる。
+
+　ジェネリクスは使用する側が任意に型を指定して自由に使うことができる性質上、ライブラリの型定義などで良く用いられる。
+
+　reactでもuseStateを定義するStateに型をつける時は以下のようにジェネリクスを使うことになる。
+
+`例: useState定義時におけるジェネリクスの利用`
+
+```react
+const [str, setStr] = useState<string>("");
+```
+
+　上記のstrはstring型として定義されるので、例えば数値で更新しようとするとエラーとなる。
+
